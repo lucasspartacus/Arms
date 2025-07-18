@@ -1,0 +1,27 @@
+# Ambientes virtuais
+venv/
+env/
+.venv/
+
+# Configurações do sistema
+__pycache__/
+*.py[cod]
+*.so
+*.log
+
+# Arquivos de ambiente
+.env
+*.env
+.env.*
+
+# Arquivos de cache do editor
+*.swp
+*.swo
+*~
+
+# VSCode settings (opcional)
+.vscode/
+
+# Mac/Linux/Windows junk
+.DS_Store
+Thumbs.db

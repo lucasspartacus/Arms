@@ -1,0 +1,20 @@
+[
+  {
+    "nome": "João Silva",
+    "habilidades": ["Python", "Django", "Git"],
+    "experiencia": 3,
+    "valores": ["colaboração", "aprendizado contínuo"]
+  },
+  {
+    "nome": "Maria Souza",
+    "habilidades": ["Java", "Spring"],
+    "experiencia": 2,
+    "valores": ["autonomia", "resultado"]
+  },
+ {
+    "nome": "João Prdro",
+    "habilidades": ["JavaSciprt", "Spring"],
+    "experiencia": 1,
+    "valores": ["autonomia", "resultado"]
+  }
+]
