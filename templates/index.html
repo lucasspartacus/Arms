@@ -8,15 +8,12 @@
 </head>
 <body class="bg-light">
 <div class="container mt-5">
-    <h1 class="mb-4 text-center">Upload de Candidatos</h1>
+    <h1 class="mb-4 text-center">Processar Candidatos</h1>
 
     <div class="card mt-5">
         <div class="card-body">
-            <h5 class="card-title">Enviar arquivo de candidatos (.json)</h5>
-            <form method="post" action="/processar" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <input type="file" class="form-control" name="candidatos_json" accept=".json" required>
-                </div>
+            <h5 class="card-title">Clique abaixo para iniciar o processamento</h5>
+            <form method="post" action="/processar" id="processForm">
                 <button type="submit" class="btn btn-primary">Processar Candidatos</button>
             </form>
 
@@ -31,16 +28,15 @@
     </div>
 </div>
 
-<!-- Script para mostrar o spinner ao enviar -->
+<!-- Script para mostrar o spinner -->
 <script>
-    const form = document.querySelector('form');
+    const form = document.getElementById('processForm');
     const spinner = document.getElementById('loadingSpinner');
 
     form.addEventListener('submit', function () {
-        form.style.display = 'none';     
-        spinner.style.display = 'block'; 
+        form.style.display = 'none';
+        spinner.style.display = 'block';
     });
 </script>
-
 </body>
 </html>

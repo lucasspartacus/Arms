@@ -3,17 +3,12 @@ import json
 import os
 
 from feedback import gerar_feedback
-from werkzeug.utils import secure_filename
 from concurrent.futures import ThreadPoolExecutor
 from process import avaliar_candidato_cached
 from flask_compress import Compress
 
-
 app = Flask(__name__)
 Compress(app)
-app.config['UPLOAD_FOLDER'] = 'uploads'
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024  # 5 MB
 
 @app.route('/')
 def index():
@@ -21,14 +16,11 @@ def index():
 
 @app.route('/processar', methods=['POST'])
 def processar():
-    file = request.files.get('candidatos_json')
-    if not file:
-        return "Nenhum arquivo enviado", 400
+    # Caminho fixo para o arquivo de candidatos
+    filepath = 'candidatos.json'
 
-    # Salvar o arquivo no servidor
-    filename = secure_filename(file.filename)
-    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-    file.save(filepath)
+    if not os.path.exists(filepath):
+        return "Arquivo candidatos.json não encontrado.", 400
 
     # Carregar dados JSON
     with open(filepath, 'r', encoding='utf-8') as f:
@@ -39,7 +31,7 @@ def processar():
         avaliacoes = list(executor.map(
             lambda c: avaliar_candidato_cached(json.dumps(c, sort_keys=True)),
             candidatos
-    ))
+        ))
 
     # Construir os resultados
     resultados = []
@@ -55,29 +47,29 @@ def processar():
         }
 
         if not avaliacao["aprovado"]:
-            reprovados.append((resultado, candidato))  # salvar para gerar feedback depois
+            reprovados.append((resultado, candidato))
         else:
-            # Feedback positivo direto
             resultado["feedback"] = f"Parabéns {candidato['nome']}! Você foi aprovado no processo seletivo. Sua combinação de competências técnicas e valores culturais é exatamente o que buscamos."
 
-    # Gerar feedbacks para reprovados 
+        resultados.append(resultado)
+
+    # Gerar feedbacks para reprovados em paralelo
     def gerar_feedback_para_reprovado(par):
         resultado, candidato = par
-        if not resultado["aprovado"]:  # segurança extra
+        if not resultado["aprovado"]:
             resultado["feedback"] = gerar_feedback(candidato, resultado["justificativa"])
         return resultado
 
     with ThreadPoolExecutor(max_workers=5) as executor:
         reprovados_atualizados = list(executor.map(gerar_feedback_para_reprovado, reprovados))
 
-    # Atualizar lista final com os feedbacks
+    # Substituir reprovados com feedback atualizado
     for atualizado in reprovados_atualizados:
-        if not atualizado.get("aprovado"):
-            for i in range(len(resultados)):
-                if resultados[i]["nome"] == atualizado["nome"]:
-                    resultados[i] = atualizado
+        for i in range(len(resultados)):
+            if resultados[i]["nome"] == atualizado["nome"]:
+                resultados[i] = atualizado
 
-    # Shortlist ordenada dos aprovados
+    # Ordenar aprovados por nota
     shortlist = sorted(
         [c for c in resultados if c["aprovado"]],
         key=lambda x: x["nota_tecnica"] + x["nota_cultural"],
