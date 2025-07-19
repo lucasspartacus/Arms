@@ -55,6 +55,8 @@ Vá ao seu navegador na url http://127.0.0.1:5000 para usar a aplicação web.
 
 Na aplicação você pode buscar por um arquivo json que contenha o formato correto referente aos usuário. Tal arquivo será analisado as Habilidades, Experiência e Valores do usuário serão passadas como prompt para gemini que realiza uma análise dos critérios técnicos e culturais, com isso verificar se o perfil dos candidatos se encaixam com a empresa. Retornando uma tela de feedback com todos os usuário borda e texto verde caso os mesmos tenham sido aprovados e vermelho caso o contrário.
 
+Foi escolhido o uso da gemini API pois é possível ser usada gratuitamente sem uso de créditos.
+
 Tela de resultados do processo seletivo da aplicação:
 
 <img width="1143" height="733" alt="Image" src="https://github.com/user-attachments/assets/2fc12ce4-c900-4d4d-b9e2-d3449dcc0b5f" />
