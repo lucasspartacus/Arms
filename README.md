@@ -57,6 +57,10 @@ Na aplicação você pode buscar por um arquivo json que contenha o formato corr
 
 Foi escolhido o uso da gemini API pois é possível ser usada gratuitamente sem uso de créditos.
 
+:video_camera: Vídeo explicação do desafio:
+
+https://youtu.be/hG3HSFYOxxw
+
 Tela de resultados do processo seletivo da aplicação:
 
 <img width="1143" height="733" alt="Image" src="https://github.com/user-attachments/assets/2fc12ce4-c900-4d4d-b9e2-d3449dcc0b5f" />
