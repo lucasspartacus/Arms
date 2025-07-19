@@ -57,4 +57,4 @@ Na aplicação você pode buscar por um arquivo json que contenha o formato corr
 
 Tela de resultados do processo seletivo da aplicação:
 
-<img width="1143" height="733" alt="Image" src="https://github.com/user-attachments/assets/d82ac162-6a70-448b-a966-85064cdf6a64" />
+<img width="1143" height="733" alt="Image" src="https://github.com/user-attachments/assets/2fc12ce4-c900-4d4d-b9e2-d3449dcc0b5f" />
